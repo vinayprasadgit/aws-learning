@@ -1,0 +1,27 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "PublicGetReadAccess",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:GetObject",
+            "Resource": "arn:aws:s3:::aws-prod-s3-demo-bucket/index.html"
+        },
+        {
+            "Sid": "AllowOwnerOnlyAccess",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:*",
+            "Resource": [
+                "arn:aws:s3:::aws-prod-s3-demo-bucket/*",
+                "arn:aws:s3:::aws-prod-s3-demo-bucket"
+            ],
+            "Condition": {
+                "StringNotEquals": {
+                    "aws:PrincipalArn": "arn:aws:iam::257394469633:root"
+                }
+            }
+        }
+    ]
+}
